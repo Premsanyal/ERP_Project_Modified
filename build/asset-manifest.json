@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Research_ERP/static/css/main.2cf90861.css",
+    "main.js": "/Research_ERP/static/js/main.b657f739.js",
+    "index.html": "/Research_ERP/index.html",
+    "main.2cf90861.css.map": "/Research_ERP/static/css/main.2cf90861.css.map",
+    "main.b657f739.js.map": "/Research_ERP/static/js/main.b657f739.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2cf90861.css",
+    "static/js/main.b657f739.js"
+  ]
+}

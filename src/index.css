@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0c111d; /* Dark background color */
+  color: #e2e8f0; /* Default text color (Slate 200) */
+  font-family: 'Inter', sans-serif;
+}
+
+/* Background for Hero Sections */
+.space-bg {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/* Glassmorphism Card Effect */
+.glass-card {
+  background: rgba(23, 30, 44, 0.5); /* #171e2c with 50% opacity */
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow Effect for Cards and Sections */
+.glow {
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+}

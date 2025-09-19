@@ -1,6 +1,3 @@
-// File: src/ui.js
-// Replace the entire content of this file.
-
 import React from 'react';
 
 // Enhanced Card components with Tailwind classes for styling

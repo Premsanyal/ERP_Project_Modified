@@ -30,7 +30,9 @@ export const Button = ({ children, variant, size, className, ...props }) => {
 export const Badge = ({ children, className }) => <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${className}`}>{children}</span>;
 
 export const Progress = ({ value }) => <div className="w-full bg-slate-800 rounded-full h-2"><div className="bg-primary h-2 rounded-full" style={{ width: `${value}%` }}></div></div>;
-export const Input = (props) => <input className="flex h-10 w-full rounded-md border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" {...props} />;
+// In src/ui.js, find the Input export and replace it with this:
+
+export const Input = (props) => <input className="flex h-10 w-full rounded-md border-gray-700 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" {...props} />;
 export const Label = (props) => <label className="text-sm font-medium leading-none text-white" {...props} />;
 export const Checkbox = (props) => <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" {...props} />;
 export const Select = ({ children }) => <div>{children}</div>;

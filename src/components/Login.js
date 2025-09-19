@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Input, Label, Checkbox } from '../ui.js';
-import { University, Eye, EyeOff, ArrowLeft, Shield, Lock, User } from 'lucide-react';
+import { University, Shield, Lock, User } from 'lucide-react';
 
 export function Login({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -17,8 +16,9 @@ export function Login({ onLogin, onBack }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#0c111d] p-4 font-sans text-white">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#111827] p-4 font-sans text-white">
+      <div className="w-full max-w-sm space-y-6">
+        {/* Header Section */}
         <div className="text-center space-y-4">
           <div className="flex justify-center">
             <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center">
@@ -31,36 +31,55 @@ export function Login({ onLogin, onBack }) {
           </div>
         </div>
 
-        <div className="bg-[#171e2c] p-8 rounded-2xl shadow-2xl">
-          <div className="text-center mb-6">
+        {/* Login Form Card */}
+        <div className="bg-[#1c2436] p-8 rounded-2xl shadow-2xl">
+          <div className="text-center mb-8">
             <h2 className="text-xl font-semibold">Faculty & Staff Login</h2>
             <p className="text-sm text-muted-foreground mt-1">Enter your university credentials to continue</p>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input id="email" type="email" placeholder="rvnwesn@trkeg.com" value={email} onChange={(e) => setEmail(e.target.value)} className="pl-10" required />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your.email@christuniversity.in"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10"
+                  required
+                />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input id="password" type={showPassword ? 'text' : 'password'} placeholder="••••••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 pr-10" required />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10"
+                  required
+                />
               </div>
             </div>
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between text-sm pt-2">
               <div className="flex items-center gap-2">
                 <Checkbox id="remember" />
                 <Label htmlFor="remember" className="font-normal !text-muted-foreground">Remember me</Label>
               </div>
               <Button variant="link" className="p-0 h-auto text-primary">Forgot password?</Button>
             </div>
-            <Button type="submit" className="w-full !py-3 !text-base" disabled={isLoading}>
-              {isLoading ? 'Signing in...' : <><Shield className="mr-2 h-5 w-5" /> Sign In</>}
-            </Button>
+            <div className="pt-2">
+              <Button type="submit" className="w-full !py-3 !text-base" disabled={isLoading}>
+                {isLoading ? 'Signing in...' : <><Shield className="mr-2 h-5 w-5" /> Sign In</>}
+              </Button>
+            </div>
           </form>
         </div>
       </div>

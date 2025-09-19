@@ -1,3 +1,4 @@
+import React from 'react'; // <-- FIX IS HERE
 import { Card, CardContent, Button, Badge } from '../ui.js';
 import { Link } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';

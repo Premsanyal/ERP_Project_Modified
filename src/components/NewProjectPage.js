@@ -1,20 +1,21 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Button, Input, Label, Card, CardContent, CardHeader, CardTitle } from '../ui.js';
+import { Button, Input, Label, Card, CardContent, CardHeader, CardTitle, Textarea } from '../ui.js';
 
 export function NewProjectPage() {
     const [title, setTitle] = useState('');
     const [lead, setLead] = useState('');
     const [description, setDescription] = useState('');
     const [budget, setBudget] = useState('');
+    const [status, setStatus] = useState('Planning');
     const [error, setError] = useState(null);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const project = { title, lead, description, budget: Number(budget) };
+        const project = { title, lead, description, budget: Number(budget), status };
 
         const response = await fetch('/api/projects', {
             method: 'POST',
@@ -26,8 +27,9 @@ export function NewProjectPage() {
         });
         const json = await response.json();
 
-        if (!response.ok) { setError(json.error); }
-        if (response.ok) {
+        if (!response.ok) {
+            setError(json.error);
+        } else {
             setError(null);
             navigate('/projects');
         }
@@ -36,13 +38,41 @@ export function NewProjectPage() {
     return (
         <div className="max-w-2xl mx-auto">
             <Card className="bg-card/50 border-border">
-                <CardHeader><CardTitle>Create a New Research Project</CardTitle></CardHeader>
+                <CardHeader>
+                    <CardTitle>Create a New Research Project</CardTitle>
+                </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div><Label htmlFor="title">Project Title</Label><Input id="title" type="text" onChange={(e) => setTitle(e.target.value)} value={title} required /></div>
-                        <div><Label htmlFor="lead">Project Lead</Label><Input id="lead" type="text" onChange={(e) => setLead(e.target.value)} value={lead} required /></div>
-                        <div><Label htmlFor="description">Description</Label><Input id="description" type="text" onChange={(e) => setDescription(e.target.value)} value={description} /></div>
-                        <div><Label htmlFor="budget">Budget ($)</Label><Input id="budget" type="number" onChange={(e) => setBudget(e.target.value)} value={budget} /></div>
+                        <div>
+                            <Label htmlFor="title">Project Title</Label>
+                            <Input id="title" type="text" onChange={(e) => setTitle(e.target.value)} value={title} required />
+                        </div>
+                        <div>
+                            <Label htmlFor="lead">Project Lead</Label>
+                            <Input id="lead" type="text" onChange={(e) => setLead(e.target.value)} value={lead} required />
+                        </div>
+                        <div>
+                            <Label htmlFor="description">Description</Label>
+                            <Textarea id="description" onChange={(e) => setDescription(e.target.value)} value={description} />
+                        </div>
+                        <div>
+                            <Label htmlFor="budget">Budget ($)</Label>
+                            <Input id="budget" type="number" onChange={(e) => setBudget(e.target.value)} value={budget} min="0" />
+                        </div>
+                        <div>
+                            <Label htmlFor="status">Status</Label>
+                            <select
+                                id="status"
+                                className="w-full rounded border px-2 py-1 bg-background text-white"
+                                value={status}
+                                onChange={e => setStatus(e.target.value)}
+                            >
+                                <option value="Planning">Planning</option>
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                                <option value="On Hold">On Hold</option>
+                            </select>
+                        </div>
                         <Button className="w-full">Create Project</Button>
                         {error && <div className="text-red-500 mt-2 p-2">{error}</div>}
                     </form>

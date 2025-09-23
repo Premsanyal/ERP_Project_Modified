@@ -6,7 +6,8 @@ const projectSchema = new Schema({
   lead: { type: String, required: true },
   description: { type: String },
   status: { type: String, default: 'Planning' },
-  budget: { type: Number },
+  budget: { type: Number, default: 0 },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Project', projectSchema);

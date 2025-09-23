@@ -1,11 +1,9 @@
-// File: src/components/Landing.js
-// Replace the entire content of this file.
-
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, Badge } from '../ui.js';
-import { University, BarChart3, Users, BookOpen, FolderOpen, Award, Globe, Zap, Shield, ArrowRight, Play, Database, TrendingUp } from 'lucide-react';
+import { University, Users, BookOpen, FolderOpen, Award, Globe, Zap, ArrowRight, Play, Database, TrendingUp } from 'lucide-react';
 
-export function Landing({ onGetStarted }) {
+export function Landing() {
   const stats = [
     { label: "Active Projects", value: "247+", icon: FolderOpen },
     { label: "Publications", value: "1,847+", icon: BookOpen },
@@ -26,7 +24,9 @@ export function Landing({ onGetStarted }) {
               <p className="text-xs text-muted-foreground">Research Portal</p>
             </div>
           </div>
-          <Button onClick={onGetStarted}>Get Started <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          <Link to="/login">
+            <Button>Get Started <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          </Link>
         </div>
       </nav>
 
@@ -38,10 +38,10 @@ export function Landing({ onGetStarted }) {
                 <div className="space-y-4">
                   <Badge className="bg-primary/20 text-primary border-primary/30"><Zap className="w-3 h-3 mr-1" />AIML & Data Science Research Hub</Badge>
                   <h1 className="text-5xl lg:text-6xl font-bold leading-tight">Transform Your <span className="text-primary">Research</span> Journey</h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed">Streamline academic research with our comprehensive ERP platform. Manage projects, track publications, analyze impact, and collaborate seamlessly with cutting-edge technology.</p>
+                  <p className="text-xl text-muted-foreground leading-relaxed">Streamline academic research with our comprehensive ERP platform. Manage projects, track publications, analyze impact, and collaborate seamlessly.</p>
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" onClick={onGetStarted}><Play className="mr-2 h-5 w-5" />Launch Portal</Button>
+                  <Link to="/login"><Button size="lg"><Play className="mr-2 h-5 w-5" />Launch Portal</Button></Link>
                   <Button size="lg" variant="outline"><Globe className="mr-2 h-5 w-5" />View Demo</Button>
                 </div>
               </div>
@@ -62,31 +62,11 @@ export function Landing({ onGetStarted }) {
                         <div className="text-2xl font-bold text-green-400">8.7</div>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      {['AI Climate Prediction', 'Blockchain Security', 'Smart City Analytics'].map((project) => (
-                        <div key={project} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
-                          <span className="text-white text-sm">{project}</span>
-                          <Badge variant="secondary" className="bg-primary/20 text-primary">Active</Badge>
-                        </div>
-                      ))}
-                    </div>
                   </CardContent>
                 </Card>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-16 mt-16 border-t border-white/10">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="flex justify-center mb-2">{React.createElement(stat.icon, { className: "h-7 w-7 text-primary" })}</div>
-                  <div className="text-3xl font-bold">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
-        <section className="py-24 text-center">
-            <h2 className="text-4xl font-bold">Comprehensive Research Management</h2>
         </section>
       </main>
     </div>

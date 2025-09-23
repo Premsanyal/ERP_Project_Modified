@@ -1,5 +1,5 @@
 {
-  "name": "research-erp-portal",
+  "name": "research-erp-portal-frontend",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

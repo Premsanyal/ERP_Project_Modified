@@ -1,6 +1,8 @@
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui.js';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
+// In a real app, this data would be fetched from a dedicated analytics API endpoint
 const kpiData = [
     { title: "Research Impact Score", value: "7.8", subtitle: "+0.3 from last quarter" },
     { title: "Publication Velocity", value: "1.8", subtitle: "papers per researcher/month" },

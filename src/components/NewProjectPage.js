@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import { Button, Input, Label, Card, CardContent, CardHeader, CardTitle } from '../ui.js';
 
 export function NewProjectPage() {
@@ -8,6 +9,7 @@ export function NewProjectPage() {
     const [description, setDescription] = useState('');
     const [budget, setBudget] = useState('');
     const [error, setError] = useState(null);
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -18,19 +20,16 @@ export function NewProjectPage() {
             method: 'POST',
             body: JSON.stringify(project),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         });
-
         const json = await response.json();
 
-        if (!response.ok) {
-            setError(json.error);
-        }
+        if (!response.ok) { setError(json.error); }
         if (response.ok) {
             setError(null);
-            console.log('New project added:', json);
-            navigate('/projects'); // Redirect to projects page on success
+            navigate('/projects');
         }
     };
 
@@ -40,12 +39,12 @@ export function NewProjectPage() {
                 <CardHeader><CardTitle>Create a New Research Project</CardTitle></CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div><Label htmlFor="title">Project Title</Label><Input id="title" type="text" onChange={(e) => setTitle(e.target.value)} value={title} /></div>
-                        <div><Label htmlFor="lead">Project Lead</Label><Input id="lead" type="text" onChange={(e) => setLead(e.target.value)} value={lead} /></div>
+                        <div><Label htmlFor="title">Project Title</Label><Input id="title" type="text" onChange={(e) => setTitle(e.target.value)} value={title} required /></div>
+                        <div><Label htmlFor="lead">Project Lead</Label><Input id="lead" type="text" onChange={(e) => setLead(e.target.value)} value={lead} required /></div>
                         <div><Label htmlFor="description">Description</Label><Input id="description" type="text" onChange={(e) => setDescription(e.target.value)} value={description} /></div>
                         <div><Label htmlFor="budget">Budget ($)</Label><Input id="budget" type="number" onChange={(e) => setBudget(e.target.value)} value={budget} /></div>
                         <Button className="w-full">Create Project</Button>
-                        {error && <div className="text-red-500 mt-2 p-2 border border-red-500 rounded">{error}</div>}
+                        {error && <div className="text-red-500 mt-2 p-2">{error}</div>}
                     </form>
                 </CardContent>
             </Card>

@@ -7,7 +7,6 @@ import { Projects } from './components/Projects';
 import { Login } from './components/Login';
 import { NewProjectPage } from './components/NewProjectPage';
 import { Funding } from './components/Funding';
-import { Sidebar, Header } from './components/Layout'; // Assuming you refactor these
 
 const App = () => {
   const { user } = useContext(AuthContext);

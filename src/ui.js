@@ -53,16 +53,52 @@ export const Progress = ({ value }) => (
   </div>
 );
 
-// Input, Label, Checkbox
+// --- MODIFIED COMPONENTS ---
+
+// Label (UPDATED FOR BETTER SPACING)
+export const Label = (props) => (
+  <label className="text-sm font-medium leading-none text-gray-300 block mb-2" {...props} />
+);
+
+// Input (UPDATED FOR DARK THEME)
 export const Input = (props) => (
   <input
-    className="flex h-10 w-full rounded-md border-gray-700 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+    className="flex h-10 w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-gray-900"
     {...props}
   />
 );
-export const Label = (props) => (
-  <label className="text-sm font-medium leading-none text-white" {...props} />
+
+// Textarea (UPDATED FOR DARK THEME)
+export const Textarea = (props) => (
+  <textarea
+    className="flex w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-gray-900"
+    rows={4}
+    {...props}
+  />
 );
+
+// Dialog components (UPDATED FOR POLISHED LOOK)
+export const Dialog = ({ open, onOpenChange, children }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="fixed inset-0" onClick={() => onOpenChange(false)} />
+      <div className="relative bg-[#171e2c] border border-gray-700 rounded-xl shadow-xl p-6 min-w-[320px] max-w-lg w-full">
+        {children}
+      </div>
+    </div>
+  );
+};
+export const DialogContent = ({ children }) => <div className="w-full">{children}</div>;
+export const DialogTitle = ({ children }) => (
+  <h2 className="text-lg font-bold mb-4 text-white">{children}</h2>
+);
+export const DialogActions = ({ children }) => (
+  <div className="flex justify-end gap-2 mt-6">{children}</div>
+);
+
+// --- UNCHANGED COMPONENTS ---
+
 export const Checkbox = (props) => (
   <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" {...props} />
 );
@@ -82,31 +118,3 @@ export const Avatar = ({ children, className = '' }) => (
 );
 export const AvatarFallback = ({ children }) => <span>{children}</span>;
 export const AvatarImage = () => null;
-
-// Dialog components
-export const Dialog = ({ open, onOpenChange, children }) => {
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-[#171e2c] rounded-xl shadow-xl p-6 min-w-[320px] max-w-lg w-full">
-        {children}
-      </div>
-      <div className="fixed inset-0" onClick={() => onOpenChange(false)} />
-    </div>
-  );
-};
-export const DialogContent = ({ children }) => <div>{children}</div>;
-export const DialogTitle = ({ children }) => (
-  <h2 className="text-lg font-bold mb-2">{children}</h2>
-);
-export const DialogActions = ({ children }) => (
-  <div className="flex justify-end gap-2 mt-4">{children}</div>
-);
-
-// Textarea
-export const Textarea = (props) => (
-  <textarea
-    className="flex w-full rounded-md border-gray-700 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-    {...props}
-  />
-);

@@ -1,15 +1,12 @@
 const Project = require('../models/projectModel');
 
-// GET all projects (filtered by user role)
+// GET all projects
 const getProjects = async (req, res) => {
   try {
     const query = {};
-    // If the user's role is 'Student', they only see projects they own.
-    // Admins and Faculty can see all projects.
     if (req.user.role === 'Student') {
       query.owner = req.user.id;
     }
-    
     const projects = await Project.find(query).sort({ createdAt: -1 });
     res.status(200).json(projects);
   } catch (error) {
@@ -17,20 +14,16 @@ const getProjects = async (req, res) => {
   }
 };
 
-// NEW: Get a single project by ID
+// GET a single project by ID
 const getProjectById = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
-
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
-
-    // Security check: Allow access if the user is the owner or an Admin/Faculty
     if (project.owner.toString() !== req.user.id && req.user.role === 'Student') {
       return res.status(403).json({ error: 'User not authorized to view this project' });
     }
-    
     res.status(200).json(project);
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
@@ -47,7 +40,7 @@ const createProject = async (req, res) => {
       description,
       budget,
       status,
-      owner: req.user.id // Automatically set owner from authenticated user
+      owner: req.user.id
     });
     res.status(201).json(project);
   } catch (error) {
@@ -62,13 +55,9 @@ const updateProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
-
-    // SECURITY: Check if user is the owner or an Admin before allowing update
     if (project.owner.toString() !== req.user.id && req.user.role !== 'Admin') {
       return res.status(403).json({ error: 'User not authorized to update this project' });
     }
-
-    // Update the project fields and save
     Object.assign(project, req.body);
     await project.save();
     res.status(200).json(project);
@@ -84,22 +73,20 @@ const deleteProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
-
-    // SECURITY: Check if user is the owner or an Admin before allowing delete
     if (project.owner.toString() !== req.user.id && req.user.role !== 'Admin') {
-        return res.status(403).json({ error: 'User not authorized to delete this project' });
+      return res.status(403).json({ error: 'User not authorized to delete this project' });
     }
-
     await project.deleteOne();
-    res.status(204).end(); // 204 No Content is standard for a successful deletion
+    res.status(204).end();
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
+// CRITICAL PART: Ensure all functions are exported correctly
 module.exports = {
   getProjects,
-  getProjectById, // Make sure to export the new function
+  getProjectById,
   createProject,
   updateProject,
   deleteProject
